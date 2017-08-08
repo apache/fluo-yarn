@@ -21,15 +21,14 @@ import java.util.Objects;
 import java.util.Properties;
 
 import com.google.common.base.Preconditions;
-import org.apache.fluo.api.config.FluoConfiguration;
 import org.apache.hadoop.yarn.conf.YarnConfiguration;
 
 public class FluoYarnEnv {
 
   private Properties props;
+  private String applicationName;
   private String connPropsPath;
   private String logPropsPath;
-  private FluoConfiguration fluoConfig;
   private String bundledJarPath = null;
   private YarnConfiguration yarnConfig = null;
 
@@ -47,8 +46,7 @@ public class FluoYarnEnv {
     props = FluoYarnProperties.loadFromFile(yarnProps);
     connPropsPath = connProps;
     logPropsPath = logProps;
-    fluoConfig = new FluoConfiguration(new File(connPropsPath));
-    fluoConfig.setApplicationName(appName);
+    applicationName = appName;
     bundledJarPath = jarPath;
 
   }
@@ -69,8 +67,8 @@ public class FluoYarnEnv {
     return connPropsPath;
   }
 
-  public FluoConfiguration getFluoConfig() {
-    return fluoConfig;
+  public String getApplicationName() {
+    return applicationName;
   }
 
   private static void verifyPath(String path) {
@@ -91,6 +89,15 @@ public class FluoYarnEnv {
   public String getYarnResourceManager() {
     return props.getProperty(FluoYarnProperties.YARN_RESOURCE_MANAGER_PROP,
         FluoYarnProperties.YARN_RESOUCE_MANAGER_DEFAULT);
+  }
+
+  public String getZookeepers() {
+    return props.getProperty(FluoYarnProperties.ZOOKEEPERS_PROP,
+        FluoYarnProperties.ZOOKEEPERS_DEFAULT);
+  }
+
+  public String getAppZookeepers() {
+    return getZookeepers() + "/" + applicationName;
   }
 
   public int getWorkerCores() {

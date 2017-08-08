@@ -18,7 +18,6 @@ package org.apache.fluo.yarn.core;
 import java.io.File;
 import java.util.Collection;
 
-import org.apache.fluo.api.config.FluoConfiguration;
 import org.apache.twill.api.ResourceReport;
 import org.apache.twill.api.ResourceSpecification;
 import org.apache.twill.api.TwillApplication;
@@ -62,10 +61,9 @@ public class FluoYarnLauncher {
               .setMemory(env.getWorkerMaxMemory(), ResourceSpecification.SizeUnit.MEGA)
               .setInstances(env.getWorkerInstances()).build();
 
-      return TwillSpecification.Builder.with()
-          .setName("fluo-app-" + env.getFluoConfig().getApplicationName()).withRunnable()
-          .add(ORACLE_ID, new BundledJarRunnable(), oracleResources).withLocalFiles()
-          .add(env.getBundledJarName(), new File(env.getBundledJarPath()), false)
+      return TwillSpecification.Builder.with().setName("fluo-app-" + env.getApplicationName())
+          .withRunnable().add(ORACLE_ID, new BundledJarRunnable(), oracleResources)
+          .withLocalFiles().add(env.getBundledJarName(), new File(env.getBundledJarPath()), false)
           .add(CONN_PROPS, new File(env.getConnPropsPath()), false)
           .add(LOG4J_PROPS, new File(env.getLogPropsPath()), false).apply()
           .add(WORKER_ID, new BundledJarRunnable(), workerResources).withLocalFiles()
@@ -106,7 +104,6 @@ public class FluoYarnLauncher {
     String jarPath = args[4];
 
     FluoYarnEnv env = new FluoYarnEnv(yarnProps, connProps, logProps, appName, jarPath);
-    FluoConfiguration fluoConfig = env.getFluoConfig();
 
     BundledJarRunner.Arguments oracleArgs =
         new BundledJarRunner.Arguments.Builder().setJarFileName(env.getBundledJarName())
@@ -119,7 +116,7 @@ public class FluoYarnLauncher {
             .setMainArgs(new String[] {CONN_PROPS, appName}).createArguments();
 
     TwillRunnerService twillRunner =
-        new YarnTwillRunnerService(env.getYarnConfiguration(), fluoConfig.getAppZookeepers());
+        new YarnTwillRunnerService(env.getYarnConfiguration(), env.getAppZookeepers());
     twillRunner.start();
 
     TwillPreparer preparer =
