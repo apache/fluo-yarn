@@ -116,7 +116,7 @@ public class FluoYarnLauncher {
             .setMainArgs(new String[] {CONN_PROPS, appName}).createArguments();
 
     TwillRunnerService twillRunner =
-        new YarnTwillRunnerService(env.getYarnConfiguration(), env.getAppZookeepers());
+        new YarnTwillRunnerService(env.getYarnConfiguration(), env.getZookeepers());
     twillRunner.start();
 
     TwillPreparer preparer =

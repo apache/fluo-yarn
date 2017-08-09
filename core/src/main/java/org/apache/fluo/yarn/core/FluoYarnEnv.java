@@ -88,16 +88,12 @@ public class FluoYarnEnv {
 
   public String getYarnResourceManager() {
     return props.getProperty(FluoYarnProperties.YARN_RESOURCE_MANAGER_PROP,
-        FluoYarnProperties.YARN_RESOUCE_MANAGER_DEFAULT);
+        FluoYarnProperties.YARN_RESOURCE_MANAGER_DEFAULT);
   }
 
   public String getZookeepers() {
     return props.getProperty(FluoYarnProperties.ZOOKEEPERS_PROP,
         FluoYarnProperties.ZOOKEEPERS_DEFAULT);
-  }
-
-  public String getAppZookeepers() {
-    return getZookeepers() + "/" + applicationName;
   }
 
   public int getWorkerCores() {

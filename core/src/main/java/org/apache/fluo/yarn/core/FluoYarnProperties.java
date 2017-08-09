@@ -26,7 +26,7 @@ public class FluoYarnProperties {
   // General properties
   public static final String YARN_RESOURCE_MANAGER_PROP = YARN_PREFIX + ".resource.manager";
   public static final String ZOOKEEPERS_PROP = YARN_PREFIX + ".zookeepers";
-  public static final String YARN_RESOUCE_MANAGER_DEFAULT = "localhost";
+  public static final String YARN_RESOURCE_MANAGER_DEFAULT = "localhost";
   public static final String ZOOKEEPERS_DEFAULT = "localhost/fluo-yarn";
 
   // Worker properties
