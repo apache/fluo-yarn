@@ -62,6 +62,8 @@ EXCLUDE_RE="(.*log4j.*)|(.*asm.*)|(.*guava.*)|(.*gson.*)"
 LAUNCHER_CLASSPATH="$lib/*"
 addToClasspath "$HADOOP_PREFIX/share/hadoop/common" $EXCLUDE_RE;
 addToClasspath "$HADOOP_PREFIX/share/hadoop/common/lib" $EXCLUDE_RE;
+addToClasspath "$HADOOP_PREFIX/share/hadoop/hdfs" $EXCLUDE_RE;
+addToClasspath "$HADOOP_PREFIX/share/hadoop/hdfs/lib" $EXCLUDE_RE;
 addToClasspath "$HADOOP_PREFIX/share/hadoop/yarn" $EXCLUDE_RE;
 addToClasspath "$HADOOP_PREFIX/share/hadoop/yarn/lib" $EXCLUDE_RE;
 export LAUNCHER_CLASSPATH
