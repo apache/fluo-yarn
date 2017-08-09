@@ -35,7 +35,7 @@ if [ ! -f "$conf/fluo-yarn-env.sh" ]; then
   exit 1
 fi
 source "$conf/fluo-yarn-env.sh"
-export CLASSPATH
+export CLASSPATH=$LAUNCHER_CLASSPATH
 
 # stop if any command fails
 set -e
@@ -53,8 +53,7 @@ function print_usage {
 function build_bundled_jar {
   app_dir=$lib/apps/$app
   mkdir -p "$app_dir/lib"
-
-  java org.apache.fluo.command.FluoGetJars "$FLUO_CONN_PROPS" "$app" "$app_dir/lib"
+  $FLUO_HOME/bin/fluo get-jars "$app" "$app_dir/lib"
 
   fluo_classpath=$FLUO_CLASSPATH
 

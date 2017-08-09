@@ -51,6 +51,7 @@ download ch.qos.logback:logback-classic:jar:1.1.3
 download ch.qos.logback:logback-core:jar:1.1.3
 download com.101tec:zkclient:jar:0.3
 download com.google.code.findbugs:jsr305:jar:2.0.1
+download com.google.code.gson:gson:jar:2.8.0
 download com.google.guava:guava:jar:13.0.1
 download com.yammer.metrics:metrics-annotation:jar:2.2.0
 download com.yammer.metrics:metrics-core:jar:2.2.0

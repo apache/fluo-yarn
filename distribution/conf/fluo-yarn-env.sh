@@ -19,40 +19,49 @@
 # conf - Directory containing Fluo YARN launcher configuration
 # lib - Directory containing Fluo YARN launcher libraries
 
+####################################
+# General variables that must be set
+####################################
+
 ## Fluo installation
 export FLUO_HOME="${FLUO_HOME:-/path/to/fluo}"
-
-# File that contains properties need to connect to Fluo
+## Hadoop installation
+export HADOOP_PREFIX="${HADOOP_PREFIX:-/path/to/hadoop}"
+## File that contains properties need to connect to Fluo
 export FLUO_CONN_PROPS=${FLUO_CONN_PROPS:-$FLUO_HOME/conf/fluo-conn.properties}
 
-# Fluo Yarn deals with two classpaths, one for the launcher and another for
-# the launched application.  The following is used to build the classpath for
-# the launched application.  Later in this file CLASSPATH is defined and that is
-# used for the launcher.
+###########################
+# Build classpath variables
+###########################
+
+## A classpath needs to built for the YARN launcher and the launched Fluo application
+
+## Classpath for launched Fluo application
 export FLUO_CLASSPATH=$($FLUO_HOME/bin/fluo classpath)
 
-# The classpath for Fluo must be defined.  The Fluo tarball does not include
-# jars for Accumulo, Zookeeper, or Hadoop.  This example env file offers two
-# ways to setup the classpath with these jars.  Go to the end of the file for
-# more info.
-
-# This function attempts to obtain Accumulo, Hadoop, and Zookeeper jars from
-# Fluo classpath
-setupClasspathFromSystem()
+## Classpath of Fluo YARN Launcher
+addToClasspath()
 {
-  CLASSPATH="$lib/*:$FLUO_CLASSPATH"
+  local dir=$1
+  local filterRegex=$2
+
+  if [ ! -d "$dir" ]; then
+    echo "ERROR $dir does not exist or not a directory"
+    exit 1
+  fi
+
+  for jar in $dir/*.jar; do
+    if ! [[ $jar =~ $filterRegex ]]; then
+       LAUNCHER_CLASSPATH="$LAUNCHER_CLASSPATH:$jar"
+    fi
+  done
 }
 
-# This function obtains Accumulo, Hadoop, and Zookeeper jars from
-# $lib/ahz/. Before using this function, make sure you run
-# `./lib/fetch.sh ahz` to download dependencies to this directory.
-setupClasspathFromLib(){
-  CLASSPATH="$lib/*:$lib/ahz/*"
-}
-
-# Call one of the following functions to setup the classpath or write your own
-# bash code to setup the classpath for Fluo. You must also run the command
-# `./lib/fetch.sh extra` to download extra Fluo dependencies before using Fluo.
-
-setupClasspathFromSystem
-#setupClasspathFromLib
+# Any jars matching this pattern is excluded from classpath
+EXCLUDE_RE="(.*log4j.*)|(.*asm.*)|(.*guava.*)|(.*gson.*)"
+LAUNCHER_CLASSPATH="$lib/*"
+addToClasspath "$HADOOP_PREFIX/share/hadoop/common" $EXCLUDE_RE;
+addToClasspath "$HADOOP_PREFIX/share/hadoop/common/lib" $EXCLUDE_RE;
+addToClasspath "$HADOOP_PREFIX/share/hadoop/yarn" $EXCLUDE_RE;
+addToClasspath "$HADOOP_PREFIX/share/hadoop/yarn/lib" $EXCLUDE_RE;
+export LAUNCHER_CLASSPATH
