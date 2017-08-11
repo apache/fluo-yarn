@@ -27,6 +27,8 @@
 export FLUO_HOME="${FLUO_HOME:-/path/to/fluo}"
 ## Hadoop installation
 export HADOOP_PREFIX="${HADOOP_PREFIX:-/path/to/hadoop}"
+## Zookeeper installation
+export ZOOKEEPER_HOME="${ZOOKEEPER_HOME:-/path/to/zookeeper}"
 ## File that contains properties need to connect to Fluo
 export FLUO_CONN_PROPS=${FLUO_CONN_PROPS:-$FLUO_HOME/conf/fluo-conn.properties}
 
@@ -60,10 +62,12 @@ addToClasspath()
 # Any jars matching this pattern is excluded from classpath
 EXCLUDE_RE="(.*log4j.*)|(.*asm.*)|(.*guava.*)|(.*gson.*)"
 LAUNCHER_CLASSPATH="$lib/*"
-addToClasspath "$HADOOP_PREFIX/share/hadoop/common" $EXCLUDE_RE;
-addToClasspath "$HADOOP_PREFIX/share/hadoop/common/lib" $EXCLUDE_RE;
-addToClasspath "$HADOOP_PREFIX/share/hadoop/hdfs" $EXCLUDE_RE;
-addToClasspath "$HADOOP_PREFIX/share/hadoop/hdfs/lib" $EXCLUDE_RE;
-addToClasspath "$HADOOP_PREFIX/share/hadoop/yarn" $EXCLUDE_RE;
-addToClasspath "$HADOOP_PREFIX/share/hadoop/yarn/lib" $EXCLUDE_RE;
+addToClasspath "$ZOOKEEPER_HOME" $EXCLUDE_RE
+addToClasspath "$ZOOKEEPER_HOME/lib" $EXCLUDE_RE
+addToClasspath "$HADOOP_PREFIX/share/hadoop/common" $EXCLUDE_RE
+addToClasspath "$HADOOP_PREFIX/share/hadoop/common/lib" $EXCLUDE_RE
+addToClasspath "$HADOOP_PREFIX/share/hadoop/hdfs" $EXCLUDE_RE
+addToClasspath "$HADOOP_PREFIX/share/hadoop/hdfs/lib" $EXCLUDE_RE
+addToClasspath "$HADOOP_PREFIX/share/hadoop/yarn" $EXCLUDE_RE
+addToClasspath "$HADOOP_PREFIX/share/hadoop/yarn/lib" $EXCLUDE_RE
 export LAUNCHER_CLASSPATH
