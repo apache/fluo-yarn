@@ -73,6 +73,8 @@ download org.slf4j:jcl-over-slf4j:jar:1.7.2
 download org.slf4j:log4j-over-slf4j:jar:1.7.12
 download org.slf4j:slf4j-api:jar:1.7.12
 download org.xerial.snappy:snappy-java:jar:1.0.5
+# See https://github.com/apache/fluo/issues/820
+download io.netty:netty:jar:3.9.9.Final
 
 echo -e "Done!\n"
 echo "NOTE - The dependencies downloaded have been tested with some versions of Fluo, Hadoop, Zookeeper, and Accumulo."

@@ -34,7 +34,7 @@ import org.slf4j.LoggerFactory;
 
 public class FluoYarnLauncher {
 
-  private static final Logger LOG = LoggerFactory.getLogger(FluoYarnLauncher.class);
+  private static final Logger log = LoggerFactory.getLogger(FluoYarnLauncher.class);
 
   private static final String ORACLE_ID = "Oracle";
   private static final String WORKER_ID = "Worker";
@@ -127,14 +127,23 @@ public class FluoYarnLauncher {
 
     TwillController controller = preparer.start();
 
+    ResourceReport report = controller.getResourceReport();
+    log.info("Waiting for Fluo application '{}' to start in YARN...", appName);
+    while (report == null) {
+      Thread.sleep(500);
+      report = controller.getResourceReport();
+    }
+    String appID = report.getApplicationId();
+    log.info("Fluo application '{}' has started in YARN with ID '{}'", appName, appID);
+
+    log.info("Waiting for all containers of Fluo application '{}' to start in YARN...", appName);
     int numRunning = getNumRunning(controller);
     while (numRunning != env.getTotalInstances()) {
-      LOG.info("{} of {} containers have started in YARN.", numRunning, env.getTotalInstances());
-      Thread.sleep(5000);
+      log.info("{} of {} containers have started in YARN", numRunning, env.getTotalInstances());
+      Thread.sleep(2000);
       numRunning = getNumRunning(controller);
     }
-
-    LOG.info("{} of {} containers have started in YARN", numRunning, env.getTotalInstances());
-    LOG.info("{} application was successfully started in YARN", appName);
+    log.info("{} of {} containers have started in YARN", numRunning, env.getTotalInstances());
+    log.info("Fluo application '{}' has successfully started in YARN with ID '{}'", appName, appID);
   }
 }

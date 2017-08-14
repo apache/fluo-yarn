@@ -61,7 +61,7 @@ addToClasspath()
 
 # Any jars matching this pattern is excluded from classpath
 EXCLUDE_RE="(.*log4j.*)|(.*asm.*)|(.*guava.*)|(.*gson.*)"
-LAUNCHER_CLASSPATH="$lib/*"
+LAUNCHER_CLASSPATH="$conf:$lib/*"
 addToClasspath "$ZOOKEEPER_HOME" $EXCLUDE_RE
 addToClasspath "$ZOOKEEPER_HOME/lib" $EXCLUDE_RE
 addToClasspath "$HADOOP_PREFIX/share/hadoop/common" $EXCLUDE_RE
