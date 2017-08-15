@@ -1,0 +1,102 @@
+#! /usr/bin/env bash
+
+# Licensed to the Apache Software Foundation (ASF) under one or more contributor license
+# agreements. See the NOTICE file distributed with this work for additional information regarding
+# copyright ownership. The ASF licenses this file to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance with the License. You may obtain a
+# copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software distributed under the License
+# is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+# or implied. See the License for the specific language governing permissions and limitations under
+# the License.
+
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do
+   bin="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+   SOURCE="$(readlink "$SOURCE")"
+   [[ $SOURCE != /* ]] && SOURCE="$bin/$SOURCE"
+done
+# Set up variables needed by fluo-env.sh
+export bin="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+export basedir="$( cd -P ${bin}/.. && pwd )"
+export conf="$basedir/conf"
+export lib="$basedir/lib"
+export cmd="$1"
+case "$cmd" in
+  start) export app="$2" ;;
+esac
+export FLUO_YARN_VERSION=${project.version}
+
+if [ ! -f "$conf/fluo-yarn-env.sh" ]; then
+  echo "fluo-yarn-env.sh must exist in $conf"
+  exit 1
+fi
+source "$conf/fluo-yarn-env.sh"
+export CLASSPATH=$LAUNCHER_CLASSPATH
+
+# stop if any command fails
+set -e
+
+function print_usage {
+  echo -e "Usage: fluo-yarn <command> (<argument> ...)\n"
+  echo -e "Possible commands:\n"
+  echo "  classpath                   Prints the classpath setup by fluo-yarn-env.sh"
+  echo "  start <app> <yarnProps>     Starts Fluo <app> in YARN using <yarnProps>"
+  echo "  version                     Prints the version of Fluo YARN launcher"
+  echo " "
+  exit 1
+}
+
+function build_bundled_jar {
+  app_dir=$lib/apps/$app
+  mkdir -p "$app_dir/lib"
+  $FLUO_HOME/bin/fluo get-jars "$app" "$app_dir/lib"
+
+  fluo_classpath=$FLUO_CLASSPATH
+
+  IFS=':' read -ra ADDR <<< "$fluo_classpath"
+  for cpentry in "${ADDR[@]}"; do
+    if [[ $cpentry = *\* ]]; then
+      for f in $cpentry; do
+        if [[ -f $f ]]; then
+          cp "$f" "$app_dir/lib/"
+        fi
+      done
+    else
+      cp "$cpentry" "$app_dir/lib/"
+    fi
+  done
+
+  bundled_jar=fluo-app-${app}.jar
+
+  pushd "$app_dir" > /dev/null
+  jar cf $bundled_jar lib
+  popd > /dev/null
+}
+
+case "$1" in
+start)
+  if [ ! -f "$FLUO_CONN_PROPS" ]; then
+    echo "Fluo connection properties file '$FLUO_CONN_PROPS' does not exist"
+    exit 1
+  fi
+  if [ ! -f "$3" ]; then
+    echo "The file argument given for <yarnProps> does not exist at $3"
+    print_usage
+    exit 1
+  fi
+  build_bundled_jar
+  java org.apache.fluo.yarn.core.FluoYarnLauncher "$FLUO_CONN_PROPS" "$3" "$conf/log4j.properties" "$app" "$app_dir/$bundled_jar"
+  ;;
+classpath)
+  echo "$CLASSPATH"
+  ;;
+version)
+  echo "$FLUO_YARN_VERSION"
+  ;;
+*)
+  print_usage
+esac
