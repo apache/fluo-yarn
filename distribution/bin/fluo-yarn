@@ -36,7 +36,6 @@ if [ ! -f "$conf/fluo-yarn-env.sh" ]; then
 fi
 source "$conf/fluo-yarn-env.sh"
 export CLASSPATH=$LAUNCHER_CLASSPATH
-export HADOOP_HOME=$HADOOP_PREFIX
 
 # stop if any command fails
 set -e

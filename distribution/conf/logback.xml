@@ -24,6 +24,7 @@
   <logger name="org.apache.fluo" level="debug"/>
   <logger name="org.apache.curator" level="error"/>
   <logger name="org.apache.hadoop" level="info"/>
+  <logger name="org.apache.hadoop.yarn.client.RMProxy" level="error"/>
   <logger name="org.apache.twill" level="info"/>
   <logger name="org.apache.twill.yarn.YarnTwillRunnerService" level="error"/>
   <logger name="org.apache.zookeeper" level="error"/>
