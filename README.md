@@ -17,6 +17,8 @@ limitations under the License.
 
 # Fluo YARN launcher
 
+[![Build Status][ti]][tl] [![Apache License][li]][ll]
+
 A tool for running Apache Fluo applications in Hadoop YARN.
 
 ## Requirements
@@ -108,3 +110,7 @@ When you want you stop your Fluo application, use the the YARN resource manager 
 [fluo-yarn-env.sh]: distribution/conf/fluo-yarn-env.sh
 [fluo-yarn.properties]: distribution/conf/fluo-yarn.properties
 [log4j.properties]: distribution/conf/log4j.properties
+[ti]: https://travis-ci.org/apache/fluo-yarn.svg?branch=master
+[tl]: https://travis-ci.org/apache/fluo-yarn
+[li]: http://img.shields.io/badge/license-ASL-blue.svg
+[ll]: https://github.com/apache/fluo-yarn/blob/master/LICENSE
