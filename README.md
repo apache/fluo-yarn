@@ -34,7 +34,7 @@ See the [related projects page][related] for external projects that may help in 
 
 ## Set up your Fluo application
 
-Before you can launch a Fluo application in YARN, you should follow Fluo's [install instructions][install]
+Before you can launch a Fluo application in YARN, you should follow Fluo's [install] and [application] instructions
 to install Fluo and initialize a Fluo application. After your application has been initialized, follow
 the insructions below to install the Fluo YARN launcher and run your application in YARN. Avoid using the
 `fluo` command to start local oracle and worker processes if you are running in YARN.
@@ -82,7 +82,10 @@ After you obtain a Fluo YARN distribution tarball, follow these steps to install
 
 ## Start Fluo application in YARN
 
-Follow the instructions below to start a Fluo application which contain an oracle and multiple workers.
+Before you can launch a Fluo application in YARN, you should follow Fluo's [install] and [application] instructions
+to install Fluo and initialize a Fluo application. After your application has been initialized, follow
+the insructions below to run your application in YARN. Avoid using the `fluo` command to start local oracle and worker
+processes if you are running in YARN.
 
 1. Configure [fluo-yarn-env.sh] and [fluo-yarn.properties] if you have not already.
 
@@ -90,13 +93,14 @@ Follow the instructions below to start a Fluo application which contain an oracl
 
         fluo-yarn start myapp conf/fluo-yarn.properties
 
-   The commands will retrieve your application configuration and observer jars (using your
-   application name) before starting the application in YARN.
+   The commands will retrieve your application configuration and observer jars (using your application name) before
+   starting the application in YARN. The command will output a YARN application ID that can be used to find your
+   application in the YARN resource manager and view its logs.
 
 ## Manage Fluo application in YARN
 
 Except for stopping your application in YARN, the `fluo` script can be used to manage your application using the
-`scan` and `wait` commands.  See Fluo's [install instruction][install] for more information.
+`scan` and `wait` commands.  See [Fluo's application instructions][application] for more information.
 
 When you want you stop your Fluo application, use the the YARN resource manager or the 
 `yarn application -kill <App ID>` to stop the application in YARN.
@@ -105,7 +109,8 @@ When you want you stop your Fluo application, use the the YARN resource manager 
 [YARN]: http://hadoop.apache.org/
 [related]: https://fluo.apache.org/related-projects/
 [related]: https://fluo.apache.org/related-projects/
-[install]: https://github.com/apache/incubator-fluo/blob/master/docs/install.md
+[install]: https://github.com/apache/fluo/blob/master/docs/install.md
+[application]: https://github.com/apache/fluo/blob/master/docs/applications.md
 [release]: https://fluo.apache.org/download/
 [fluo-yarn-env.sh]: distribution/conf/fluo-yarn-env.sh
 [fluo-yarn.properties]: distribution/conf/fluo-yarn.properties
