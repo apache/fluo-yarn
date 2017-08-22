@@ -82,10 +82,8 @@ After you obtain a Fluo YARN distribution tarball, follow these steps to install
 
 ## Start Fluo application in YARN
 
-Before you can launch a Fluo application in YARN, you should follow Fluo's [install] and [application] instructions
-to install Fluo and initialize a Fluo application. After your application has been initialized, follow
-the insructions below to run your application in YARN. Avoid using the `fluo` command to start local oracle and worker
-processes if you are running in YARN.
+Follow the instructions below to start your application in YARN. If you have not done so already, you should [initialize
+your Fluo application][application] before following these instructions.
 
 1. Configure [fluo-yarn-env.sh] and [fluo-yarn.properties] if you have not already.
 
