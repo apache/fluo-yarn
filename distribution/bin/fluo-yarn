@@ -88,6 +88,11 @@ start)
     print_usage
     exit 1
   fi
+  app_status=$($FLUO_HOME/bin/fluo status $app)
+  if [[ "$app_status" == "RUNNING" ]]; then
+    echo "Fluo appplication '$app' is already running!"
+    exit 1
+  fi
   build_bundled_jar
   java org.apache.fluo.yarn.core.FluoYarnLauncher "$FLUO_CONN_PROPS" "$3" "$conf/log4j.properties" "$app" "$app_dir/$bundled_jar"
   ;;
