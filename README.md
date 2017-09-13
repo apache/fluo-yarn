@@ -21,7 +21,7 @@ limitations under the License.
 
 A tool for running Apache Fluo applications in Hadoop YARN.
 
-This is currently a work in progress that depends on unreleased features of Fluo.  It will not be ready for use until after Fluo 1.2.0 is released.  Sometime after Fluo 1.2.0 is released this project will make its first release.
+**This is currently a work in progress that depends on unreleased features of Fluo and will not be ready for use until after Fluo 1.2.0 is released.**  Sometime after Fluo 1.2.0 is released this project will make its first release.
 
 ## Requirements
 
