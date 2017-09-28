@@ -15,7 +15,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Contributing to Fluo Docker
+# Contributing to Fluo Yarn
 
 Checkout [How to Contribute][contribute] for general instructions on contributing to Fluo
 projects.
