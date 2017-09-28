@@ -17,11 +17,25 @@ limitations under the License.
 
 # Contributing to Fluo Yarn
 
-Checkout [How to Contribute][contribute] for general instructions on contributing to Fluo
-projects.
+## Building Fluo Yarn
 
-Before making a pull request to this project, see if the `mvn verify` runs successfully. If
-it does not succeed and you are unsure why, then go ahead and create the pull request with 
-a comment about the failure.
+If you have [Git], [Maven], and [Java][java] (version 8+) installed, run these commands to build
+Fluo Yarn:
 
+    git clone https://github.com/apache/fluo-yarn.git
+    cd fluo-yarn
+    mvn package
+
+## Pull Request
+
+Before making a pull request please attempt to run `mvn verify`.  If it fails and you are not sure 
+why, it's OK to go ahead and make the pull request.
+
+## See Also
+
+* [How to Contribute][contribute] on Apache Fluo project website
+
+[Git]: https://git-scm.com/
+[java]: http://openjdk.java.net/
+[Maven]: https://maven.apache.org/
 [contribute]: https://fluo.apache.org/how-to-contribute/
