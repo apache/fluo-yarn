@@ -108,12 +108,12 @@ public class FluoYarnLauncher {
     BundledJarRunner.Arguments oracleArgs =
         new BundledJarRunner.Arguments.Builder().setJarFileName(env.getBundledJarName())
             .setLibFolder("lib").setMainClassName("org.apache.fluo.command.FluoOracle")
-            .setMainArgs(new String[] {CONN_PROPS, appName}).createArguments();
+            .setMainArgs(new String[] {"-a", appName}).createArguments();
 
     BundledJarRunner.Arguments workerArgs =
         new BundledJarRunner.Arguments.Builder().setJarFileName(env.getBundledJarName())
             .setLibFolder("lib").setMainClassName("org.apache.fluo.command.FluoWorker")
-            .setMainArgs(new String[] {CONN_PROPS, appName}).createArguments();
+            .setMainArgs(new String[] {"-a", appName}).createArguments();
 
     TwillRunnerService twillRunner =
         new YarnTwillRunnerService(env.getYarnConfiguration(), env.getZookeepers());
@@ -122,6 +122,7 @@ public class FluoYarnLauncher {
     TwillPreparer preparer =
         twillRunner.prepare(new FluoYarnApp(env))
             .addJVMOptions("-Dlog4j.configuration=file:$PWD/" + LOG4J_PROPS)
+            .addJVMOptions(("-Dfluo.conn.props=" + CONN_PROPS))
             .withArguments(ORACLE_ID, oracleArgs.toArray())
             .withArguments(WORKER_ID, workerArgs.toArray());
 
