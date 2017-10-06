@@ -27,7 +27,7 @@ A tool for running Apache Fluo applications in Hadoop YARN.
 
 * [Documentation][docs] for running a Fluo application in YARN
 
-[docs]: https://fluo.apache.org/docs/fluo/1.2/administration/run-fluo-in-yarn/
+[docs]: https://fluo.apache.org/docs/fluo/1.2/administration/run-fluo-in-yarn
 [ti]: https://travis-ci.org/apache/fluo-yarn.svg?branch=master
 [tl]: https://travis-ci.org/apache/fluo-yarn
 [li]: http://img.shields.io/badge/license-ASL-blue.svg
