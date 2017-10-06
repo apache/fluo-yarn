@@ -53,7 +53,7 @@ function print_usage {
 function build_bundled_jar {
   app_dir=$lib/apps/$app
   mkdir -p "$app_dir/lib"
-  $FLUO_HOME/bin/fluo get-jars "$app" "$app_dir/lib"
+  $FLUO_HOME/bin/fluo get-jars -a "$app" -d "$app_dir/lib"
 
   fluo_classpath=$FLUO_CLASSPATH
 
@@ -88,7 +88,7 @@ start)
     print_usage
     exit 1
   fi
-  app_status=$($FLUO_HOME/bin/fluo status $app)
+  app_status=$($FLUO_HOME/bin/fluo status -a $app)
   if [[ "$app_status" == "RUNNING" ]]; then
     echo "Fluo appplication '$app' is already running!"
     exit 1
