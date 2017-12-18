@@ -82,6 +82,7 @@ public class FluoYarnEnv {
       yarnConfig = new YarnConfiguration();
       yarnConfig.set("mapreduce.framework.name", "yarn");
       yarnConfig.set("yarn.resourcemanager.hostname", getYarnResourceManager());
+      yarnConfig.set("fs.defaultFS", getDfsRoot());
     }
     return yarnConfig;
   }
@@ -94,6 +95,10 @@ public class FluoYarnEnv {
   public String getZookeepers() {
     return props.getProperty(FluoYarnProperties.ZOOKEEPERS_PROP,
         FluoYarnProperties.ZOOKEEPERS_DEFAULT);
+  }
+
+  public String getDfsRoot() {
+    return props.getProperty(FluoYarnProperties.DFS_ROOT_PROP, FluoYarnProperties.DFS_ROOT_DEFAULT);
   }
 
   public int getWorkerCores() {
