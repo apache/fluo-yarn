@@ -30,6 +30,7 @@ public class FluoYarnProperties {
   public static final String YARN_RESOURCE_MANAGER_DEFAULT = "localhost";
   public static final String ZOOKEEPERS_DEFAULT = "localhost/fluo-yarn";
   public static final String DFS_ROOT_DEFAULT = "hdfs://localhost:8020/";
+  public static final String QUEUE_PROP = YARN_PREFIX + ".queue";
 
   // Worker properties
   public static final String WORKER_INSTANCES_PROP = YARN_PREFIX + ".worker.instances";

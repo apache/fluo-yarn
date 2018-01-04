@@ -125,6 +125,10 @@ public class FluoYarnLauncher {
         .withArguments(ORACLE_ID, oracleArgs.toArray())
         .withArguments(WORKER_ID, workerArgs.toArray());
 
+    if (env.getYarnQueue() != null) {
+      preparer.setSchedulerQueue(env.getYarnQueue());
+    }
+
     TwillController controller = preparer.start();
 
     ResourceReport report = controller.getResourceReport();
