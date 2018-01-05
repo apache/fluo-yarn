@@ -131,6 +131,10 @@ public class FluoYarnEnv {
         FluoYarnProperties.ORACLE_MAX_MEMORY_MB_DEFAULT));
   }
 
+  public String getYarnQueue() {
+    return props.getProperty(FluoYarnProperties.QUEUE_PROP, null);
+  }
+
   public int getTotalInstances() {
     return getOracleInstances() + getWorkerInstances();
   }
