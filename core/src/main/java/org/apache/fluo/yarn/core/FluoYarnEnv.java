@@ -116,6 +116,16 @@ public class FluoYarnEnv {
         FluoYarnProperties.WORKER_MAX_MEMORY_MB_DEFAULT));
   }
 
+  public String getWorkerReservedMemory() {
+    String rmem = props.getProperty(FluoYarnProperties.WORKER_RESERVED_MEMORY_MB_PROP, null);
+    if (rmem == null) {
+      return rmem;
+    }
+
+    Preconditions.checkArgument(Integer.parseInt(rmem) > 0);
+    return rmem;
+  }
+
   public int getOracleCores() {
     return Integer.valueOf(props.getProperty(FluoYarnProperties.ORACLE_NUM_CORES_PROP,
         FluoYarnProperties.ORACLE_NUM_CORES_DEFAULT));
@@ -129,6 +139,16 @@ public class FluoYarnEnv {
   public int getOracleMaxMemory() {
     return Integer.valueOf(props.getProperty(FluoYarnProperties.ORACLE_MAX_MEMORY_MB_PROP,
         FluoYarnProperties.ORACLE_MAX_MEMORY_MB_DEFAULT));
+  }
+
+  public String getOracleReservedMemory() {
+    String rmem = props.getProperty(FluoYarnProperties.ORACLE_RESERVED_MEMORY_MB_PROP, null);
+    if (rmem == null) {
+      return rmem;
+    }
+
+    Preconditions.checkArgument(Integer.parseInt(rmem) > 0);
+    return rmem;
   }
 
   public String getYarnQueue() {

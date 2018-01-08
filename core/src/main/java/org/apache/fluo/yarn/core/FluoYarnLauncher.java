@@ -17,7 +17,9 @@ package org.apache.fluo.yarn.core;
 
 import java.io.File;
 import java.util.Collection;
+import java.util.Collections;
 
+import org.apache.twill.api.Configs;
 import org.apache.twill.api.ResourceReport;
 import org.apache.twill.api.ResourceSpecification;
 import org.apache.twill.api.TwillApplication;
@@ -127,6 +129,16 @@ public class FluoYarnLauncher {
 
     if (env.getYarnQueue() != null) {
       preparer.setSchedulerQueue(env.getYarnQueue());
+    }
+
+    if (env.getWorkerReservedMemory() != null) {
+      preparer.withConfiguration(WORKER_ID, Collections
+          .singletonMap(Configs.Keys.JAVA_RESERVED_MEMORY_MB, env.getWorkerReservedMemory()));
+    }
+
+    if (env.getOracleReservedMemory() != null) {
+      preparer.withConfiguration(ORACLE_ID, Collections
+          .singletonMap(Configs.Keys.JAVA_RESERVED_MEMORY_MB, env.getOracleReservedMemory()));
     }
 
     TwillController controller = preparer.start();
