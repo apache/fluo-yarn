@@ -35,6 +35,8 @@ public class FluoYarnProperties {
   // Worker properties
   public static final String WORKER_INSTANCES_PROP = YARN_PREFIX + ".worker.instances";
   public static final String WORKER_MAX_MEMORY_MB_PROP = YARN_PREFIX + ".worker.max.memory.mb";
+  public static final String WORKER_RESERVED_MEMORY_MB_PROP =
+      YARN_PREFIX + ".worker.reserved.memory.mb";
   public static final String WORKER_NUM_CORES_PROP = YARN_PREFIX + ".worker.num.cores";
   public static final String WORKER_INSTANCES_DEFAULT = "1";
   public static final String WORKER_MAX_MEMORY_MB_DEFAULT = "1024";
@@ -43,6 +45,8 @@ public class FluoYarnProperties {
   // Oracle properties
   public static final String ORACLE_INSTANCES_PROP = YARN_PREFIX + ".oracle.instances";
   public static final String ORACLE_MAX_MEMORY_MB_PROP = YARN_PREFIX + ".oracle.max.memory.mb";
+  public static final String ORACLE_RESERVED_MEMORY_MB_PROP =
+      YARN_PREFIX + ".oracle.reserved.memory.mb";
   public static final String ORACLE_NUM_CORES_PROP = YARN_PREFIX + ".oracle.num.cores";
   public static final String ORACLE_INSTANCES_DEFAULT = "1";
   public static final String ORACLE_MAX_MEMORY_MB_DEFAULT = "512";

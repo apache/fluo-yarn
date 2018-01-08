@@ -17,7 +17,7 @@ lib_dir=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 maven_prefix=https://repo1.maven.org/maven2
 
 function download {
-  IFS=':' read -ra DEP <<< "$1" 
+  IFS=':' read -ra DEP <<< "$1"
   dir=$lib_dir/
   if [ -n "$2" ]; then
     dir=$lib_dir/$2
@@ -35,7 +35,7 @@ function download {
 
   if [ -f $dir/$fn ]; then
     echo "SUCCESS: Dependency exists - $dir/$fn"
-  else 
+  else
     wget -q $download_url -P $dir
     if [ $? == 0 ]; then
       echo "SUCCESS: Dependency downloaded from $download_url"
@@ -57,14 +57,14 @@ download com.yammer.metrics:metrics-annotation:jar:2.2.0
 download com.yammer.metrics:metrics-core:jar:2.2.0
 download net.sf.jopt-simple:jopt-simple:jar:3.2
 download org.apache.kafka:kafka_2.10:jar:0.8.0
-download org.apache.twill:twill-api:jar:0.11.0
-download org.apache.twill:twill-common:jar:0.11.0
-download org.apache.twill:twill-core:jar:0.11.0
-download org.apache.twill:twill-discovery-api:jar:0.11.0
-download org.apache.twill:twill-discovery-core:jar:0.11.0
-download org.apache.twill:twill-ext:jar:0.11.0
-download org.apache.twill:twill-yarn:jar:0.11.0
-download org.apache.twill:twill-zookeeper:jar:0.11.0
+download org.apache.twill:twill-api:jar:0.12.0
+download org.apache.twill:twill-common:jar:0.12.0
+download org.apache.twill:twill-core:jar:0.12.0
+download org.apache.twill:twill-discovery-api:jar:0.12.0
+download org.apache.twill:twill-discovery-core:jar:0.12.0
+download org.apache.twill:twill-ext:jar:0.12.0
+download org.apache.twill:twill-yarn:jar:0.12.0
+download org.apache.twill:twill-zookeeper:jar:0.12.0
 download org.ow2.asm:asm-all:jar:5.0.2
 download org.scala-lang:scala-compiler:jar:2.10.1
 download org.scala-lang:scala-library:jar:2.10.1
