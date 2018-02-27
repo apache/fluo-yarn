@@ -15,13 +15,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Fluo YARN launcher
+# Apache Fluo YARN launcher
 
 [![Build Status][ti]][tl] [![Apache License][li]][ll]
 
 A tool for running Apache Fluo applications in Hadoop YARN.
-
-**This is currently a work in progress that depends on unreleased features of Fluo and will not be ready for use until after Fluo 1.2.0 is released.**  Sometime after Fluo 1.2.0 is released this project will make its first release.
 
 ## Getting Started
 

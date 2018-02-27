@@ -156,7 +156,7 @@
           <artifactId>maven-release-plugin</artifactId>
           <configuration>
             <!-- must put this here, due to MRELEASE-963 -->
-            <tagNameFormat>rel/fluo-@{project.version}</tagNameFormat>
+            <tagNameFormat>rel/fluo-yarn-@{project.version}</tagNameFormat>
           </configuration>
         </plugin>
       </plugins>
@@ -175,7 +175,6 @@
               <failOnWarning>true</failOnWarning>
               <ignoredDependencies>
                 <ignoredDependency>log4j:log4j:jar:*</ignoredDependency>
-                <ignoredDependency>org.apache.fluo:fluo-core:jar:${fluo.version}</ignoredDependency>
                 <ignoredDependency>org.apache.hadoop:hadoop-common:jar:${hadoop.version}</ignoredDependency>
                 <ignoredDependency>org.apache.hadoop:hadoop-client:jar:${hadoop.version}</ignoredDependency>
                 <ignoredDependency>org.apache.hadoop:hadoop-mapreduce-client-core:jar:${hadoop.version}</ignoredDependency>
