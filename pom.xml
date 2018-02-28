@@ -32,6 +32,16 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
+  <scm>
+    <connection>scm:git:https://gitbox.apache.org/repos/asf/fluo-yarn.git</connection>
+    <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/fluo-yarn.git</developerConnection>
+    <tag>HEAD</tag>
+    <url>https://gitbox.apache.org/repos/asf?p=fluo-yarn.git</url>
+  </scm>
+  <issueManagement>
+    <system>GitHub</system>
+    <url>https://github.com/apache/fluo-yarn/issues</url>
+  </issueManagement>
   <properties>
     <findbugs.maxRank>12</findbugs.maxRank>
     <hadoop.version>2.6.3</hadoop.version>
