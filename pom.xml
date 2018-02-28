@@ -20,9 +20,9 @@
     <artifactId>fluo-parent</artifactId>
     <version>3</version>
   </parent>
-  <artifactId>fluo-yarn-project</artifactId>
+  <artifactId>fluo-yarn</artifactId>
   <version>1.0.0-SNAPSHOT</version>
-  <packaging>pom</packaging>
+  <packaging>jar</packaging>
   <name>Apache Fluo YARN launcher</name>
   <description>Tool that launches Apache Fluo application in Hadoop YARN</description>
   <licenses>
@@ -32,13 +32,8 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
-  <modules>
-    <module>distribution</module>
-    <module>core</module>
-  </modules>
   <properties>
-    <accumulo.version>1.7.3</accumulo.version>
-    <findbugs.maxRank>9</findbugs.maxRank>
+    <findbugs.maxRank>12</findbugs.maxRank>
     <hadoop.version>2.6.3</hadoop.version>
     <logback.version>1.1.3</logback.version>
     <slf4j.version>1.7.12</slf4j.version>
@@ -79,11 +74,6 @@
         <version>4.12</version>
       </dependency>
       <dependency>
-        <groupId>org.apache.fluo</groupId>
-        <artifactId>fluo-yarn-core</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
         <groupId>org.apache.hadoop</groupId>
         <artifactId>hadoop-yarn-client</artifactId>
         <version>${hadoop.version}</version>
@@ -115,52 +105,40 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
+  <dependencies>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.hadoop</groupId>
+      <artifactId>hadoop-yarn-client</artifactId>
+      <exclusions>
+        <!-- Excluded so we use asm jar included by twill-yarn.  See FLUO-409 -->
+        <exclusion>
+          <groupId>asm</groupId>
+          <artifactId>asm</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.twill</groupId>
+      <artifactId>twill-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.twill</groupId>
+      <artifactId>twill-ext</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.twill</groupId>
+      <artifactId>twill-yarn</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+    </dependency>
+  </dependencies>
   <build>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>org.apache.accumulo</groupId>
-          <artifactId>accumulo-maven-plugin</artifactId>
-          <version>${accumulo.version}</version>
-          <configuration>
-            <instanceName>it-instance-maven</instanceName>
-            <rootPassword>ITSecret</rootPassword>
-          </configuration>
-          <executions>
-            <execution>
-              <id>run-plugin</id>
-              <goals>
-                <goal>start</goal>
-                <goal>stop</goal>
-              </goals>
-            </execution>
-          </executions>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.rat</groupId>
-          <artifactId>apache-rat-plugin</artifactId>
-          <configuration />
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-failsafe-plugin</artifactId>
-          <configuration>
-            <systemPropertyVariables>
-              <fluo.it.instance.name>it-instance-maven</fluo.it.instance.name>
-              <fluo.it.instance.clear>false</fluo.it.instance.clear>
-            </systemPropertyVariables>
-          </configuration>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-release-plugin</artifactId>
-          <configuration>
-            <!-- must put this here, due to MRELEASE-963 -->
-            <tagNameFormat>rel/fluo-yarn-@{project.version}</tagNameFormat>
-          </configuration>
-        </plugin>
-      </plugins>
-    </pluginManagement>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -186,39 +164,28 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>bin-assembly</id>
+            <goals>
+              <goal>single</goal>
+            </goals>
+            <phase>package</phase>
+            <configuration>
+              <delimiters>
+                <delimiter>@</delimiter>
+              </delimiters>
+              <escapeString>\</escapeString>
+              <descriptors>
+                <descriptor>src/main/assembly/bin.xml</descriptor>
+              </descriptors>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
-  <profiles>
-    <profile>
-      <id>fluo-release</id>
-      <!-- some properties to make the release build a bit faster -->
-      <properties>
-        <checkstyle.skip>true</checkstyle.skip>
-        <findbugs.skip>true</findbugs.skip>
-        <modernizer.skip>true</modernizer.skip>
-        <skipITs>true</skipITs>
-        <skipTests>true</skipTests>
-      </properties>
-    </profile>
-    <profile>
-      <!-- set proper source assembly name with apache-release and don't attach here -->
-      <id>apache-release</id>
-      <build>
-        <pluginManagement>
-          <plugins>
-            <plugin>
-              <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-assembly-plugin</artifactId>
-              <inherited>false</inherited>
-              <configuration>
-                <!-- source assembly gets attached in the assemble module -->
-                <attach>false</attach>
-                <finalName>fluo-${project.version}</finalName>
-              </configuration>
-            </plugin>
-          </plugins>
-        </pluginManagement>
-      </build>
-    </profile>
-  </profiles>
 </project>

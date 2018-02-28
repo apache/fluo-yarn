@@ -21,51 +21,35 @@
   <dependencySets>
     <dependencySet>
       <outputDirectory>lib</outputDirectory>
-      <directoryMode>0755</directoryMode>
-      <fileMode>0644</fileMode>
-      <useProjectArtifact>false</useProjectArtifact>
+      <useProjectArtifact>true</useProjectArtifact>
       <useTransitiveDependencies>false</useTransitiveDependencies>
       <includes>
-        <include>${groupId}:fluo-*</include>
+        <include>${groupId}:${artifactId}:*</include>
       </includes>
     </dependencySet>
   </dependencySets>
 
   <fileSets>
     <fileSet>
-      <directory>../</directory>
+      <directory>./</directory>
       <outputDirectory>.</outputDirectory>
       <includes>
-        <include>DISCLAIMER</include>
         <include>LICENSE</include>
         <include>NOTICE</include>
         <include>README.md</include>
       </includes>
     </fileSet>
     <fileSet>
-      <directory>bin</directory>
-      <outputDirectory>bin</outputDirectory>
-      <fileMode>755</fileMode>
+      <directory>src/main/assembly/contents/</directory>
+      <outputDirectory>.</outputDirectory>
       <excludes>
-        <exclude>bin/fluo-yarn</exclude>
+        <exclude>**/bin/fluo-yarn</exclude>
       </excludes>
-    </fileSet>
-    <fileSet>
-      <directory>conf</directory>
-      <outputDirectory>conf</outputDirectory>
-    </fileSet>
-    <fileSet>
-      <directory>lib</directory>
-      <outputDirectory>lib</outputDirectory>
-      <fileMode>755</fileMode>
-      <includes>
-        <include>fetch.sh</include>
-      </includes>
     </fileSet>
   </fileSets>
   <files>
     <file>
-      <source>bin/fluo-yarn</source>
+      <source>src/main/assembly/contents/bin/fluo-yarn</source>
       <outputDirectory>bin</outputDirectory>
       <filtered>true</filtered>
     </file>
