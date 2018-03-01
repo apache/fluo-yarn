@@ -13,7 +13,7 @@
  * the License.
  */
 
-package org.apache.fluo.yarn.core;
+package org.apache.fluo.yarn;
 
 import java.io.FileInputStream;
 import java.io.IOException;

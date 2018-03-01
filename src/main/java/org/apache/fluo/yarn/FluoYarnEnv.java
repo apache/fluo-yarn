@@ -13,7 +13,7 @@
  * the License.
  */
 
-package org.apache.fluo.yarn.core;
+package org.apache.fluo.yarn;
 
 import java.io.File;
 import java.nio.file.Paths;

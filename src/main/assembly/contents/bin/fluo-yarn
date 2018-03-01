@@ -28,7 +28,7 @@ export cmd="$1"
 case "$cmd" in
   start) export app="$2" ;;
 esac
-export FLUO_YARN_VERSION=${project.version}
+export FLUO_YARN_VERSION=@project.version@
 
 if [ ! -f "$conf/fluo-yarn-env.sh" ]; then
   echo "fluo-yarn-env.sh must exist in $conf"
@@ -94,7 +94,7 @@ start)
     exit 1
   fi
   build_bundled_jar
-  java org.apache.fluo.yarn.core.FluoYarnLauncher "$FLUO_CONN_PROPS" "$3" "$conf/log4j.properties" "$app" "$app_dir/$bundled_jar"
+  java org.apache.fluo.yarn.FluoYarnLauncher "$FLUO_CONN_PROPS" "$3" "$conf/log4j.properties" "$app" "$app_dir/$bundled_jar"
   ;;
 classpath)
   echo "$CLASSPATH"
