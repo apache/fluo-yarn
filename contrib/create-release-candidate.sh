@@ -83,7 +83,7 @@ createEmail() {
   echo
   echo    "    Remember, $(red DO NOT PUSH) the $(red "$tag") tag until after the vote"
   echo    "    passes and the tag is re-made with a gpg signature using:"
-  echo    "      $(red "git tag -f -m 'Apache Fluo Recipes $ver' -s $tag ${commit:0:7}")"
+  echo    "      $(red "git tag -f -m 'Apache Fluo YARN $ver' -s $tag ${commit:0:7}")"
   echo
   yellow  "IMPORTANT!! IMPORTANT!! IMPORTANT!! IMPORTANT!! IMPORTANT!! IMPORTANT!!"
   echo
@@ -105,11 +105,11 @@ createEmail() {
 
   cat <<EOF
 $(yellow '============================================================')
-Subject: $(green [VOTE] Apache Fluo Recipes "$branch")
+Subject: $(green [VOTE] Apache Fluo YARN "$branch")
 $(yellow '============================================================')
 Fluo Developers,
 
-Please consider the following candidate for Fluo Recipes $(green "$ver").
+Please consider the following candidate for Fluo YARN $(green "$ver").
 
 Git Commit:
     $(green "$commit")
@@ -117,7 +117,7 @@ Branch:
     $(green "$branch")
 
 If this vote passes, a gpg-signed tag will be created using:
-    $(green "git tag -f -m 'Apache Fluo Recipes $ver' -s $tag") \\
+    $(green "git tag -f -m 'Apache Fluo YARN $ver' -s $tag") \\
     $(green "$commit")
 Staging repo: $(green "https://repository.apache.org/content/repositories/orgapachefluo-$stagingrepo")
 Source (official release artifact): $(green "https://repository.apache.org/content/repositories/orgapachefluo-$stagingrepo/org/apache/fluo/fluo-yarn/$ver/fluo-yarn-${ver}-source-release.tar.gz")
@@ -130,13 +130,13 @@ All artifacts were built and staged with:
 Signing keys are available at https://www.apache.org/dist/fluo/KEYS
 (Expected fingerprint: $(green "$fingerprint"))
 
-Release notes (in progress) can be found at: $(green "https://fluo.apache.org/.../$ver")
+Release notes (in progress) can be found at: $(green "https://fluo.apache.org/release/fluo-yarn-$ver/")
 
 Please vote one of:
 [ ] +1 - I have verified and accept...
 [ ] +0 - I have reservations, but not strong enough to vote against...
 [ ] -1 - Because..., I do not accept...
-... these artifacts as the $(green "$ver") release of Apache Fluo Recipes.
+... these artifacts as the $(green "$ver") release of Apache Fluo YARN.
 
 This vote will end on $(green "$votedate")
 ($(green "$edtvotedate") / $(green "$pdtvotedate"))
